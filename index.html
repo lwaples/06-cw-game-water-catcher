@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Catcher</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-wrapper">
+    <!-- Main Menu -->   
+    <div id="main-menu" class="screen active">
+      <h1 class="game-title">Water Catcher</h1>
+      <div class="logo-container">
+      <img src="img/MainMenu.png" alt="charity: water logo" class="main-logo">
+</div>
+      <button id="start-btn">Start Game</button>
+      <button id="objective-btn">Objective</button>
+    </div>
+    <!-- Objective Screen -->
+    <div id="objective-screen" class="screen">
+      <h2>Objective/Instructions</h2>
+      <p>
+        Catch as many clean water droplets as possible.
+      </p>
+      <h3>Avoid:</h3>
+      <ul>
+        <li>☢️ Polluted Water</li>
+        <li>🟤 Mud/Dirt</li>
+      </ul>
+      <h3>Controls:</h3>
+      <ul>
+        <li>Arrow Keys</li>
+        <li>Mouse Drag</li>
+        <li>Touch/Swipe</li>
+      </ul>
+      <button id="back-btn">Back</button>
+    </div> 
+
+    <!-- Countdown Screen -->
+    <div id="countdown-screen" class="screen">
+      <div id="countdown-number">
+        3
+      </div>
+    </div>
+
+   <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+      <div class="score-panel">
+        <div class="score">
+          Score:
+          <span id="score">0</span>
+        </div>
+
+        <div class="timer">
+          Time:
+          <span id="time">30</span>
+        </div>
+        <div class="progress">
+          Goal: <span id="goal">0%</span>
+        </div>
+      </div>
+      <div id="game-container">
+        <img src="img/CharityWater.png" alt="charity: water logo" class="corner-logo">
+
+        <div id="bucket">
+        <img src="img/water-can-blk.png" id="bucket-img" alt="Jerry Can">
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="screen">
+      <img src="img/water-can-blk.png" alt="charity: water logo" class="end-logo">
+      <h1>Game Over!</h1>
+      <h2 id="final-score">
+        Final Score: 0
+      </h2>
+      <button id="retry-btn">
+        Try Again
+      </button>
+      <button id="menu-btn">
+        Main Menu
+      </button>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="win-screen" class="screen">
+      <h1>YOU WIN! 🎉</h1>
+      <h2 id="win-score">
+        Final Score: 0
+      </h2>
+      <button id="play-again-btn">
+        Try Again
+      </button>
+      <button id="win-menu-btn">
+        Main Menu
+      </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
