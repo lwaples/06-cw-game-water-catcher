@@ -9,12 +9,25 @@ let gameRunning = false; // Keeps track of whether game is active or not
 let dropMaker; // Will store our timer that creates drops regularly
 let timeLeft =30;
 let collisionInterval;
+let timerInterval;
 const mainMenu = document.getElementById("main-menu");
 const objectiveScreen = document.getElementById("objective-screen");
 const countdownScreen = document.getElementById("countdown-screen");
 const gameScreen = document.getElementById("game-screen");
 const gameOverScreen = document.getElementById("game-over-screen");
 const winScreen = document.getElementById("win-screen");
+
+// =============================
+// Update all score displays
+// =============================
+function updateScore() {
+    document.getElementById("score").textContent = score;
+    document.getElementById("win-score").textContent = "Final Score: " + score;
+    document.getElementById("final-score").textContent = "Final Score: " + score;
+
+    const percent = Math.min(100, Math.round(score / 70 * 100));
+    document.getElementById("goal").textContent = percent + "%";
+}
 
 // Wait for button click to start the game
 document.getElementById("start-btn").addEventListener("click", startGame);
@@ -53,12 +66,13 @@ function backToMenu(){
     gameRunning = false;
     clearInterval(dropMaker);
     clearInterval(collisionInterval);
+    clearInterval(timerInterval);
     score = 0;
     timeLeft = 30;
     bucketX = 350;
-    document.getElementById("score").textContent = 0;
+    bucket.style.left = bucketX + "px";
     document.getElementById("time").textContent = 30;
-    document.getElementById("goal").textContent = "0%";
+    updateScore();
     document.querySelectorAll(".water-drop")
     .forEach(drop => drop.remove());
     hideAllScreens();
@@ -93,10 +107,16 @@ function startGame() {
 }
 //Begin Game
 function beginActualGame() {
+    clearInterval(dropMaker);
+    clearInterval(collisionInterval);
+    clearInterval(timerInterval);
+
     gameRunning = true;
-    dropMaker = setInterval(createDrop,1000)
-    collisionInterval = setInterval(checkCollisions, 20);
-    const timerInterval = setInterval(() => {
+
+    dropMaker = setInterval(createDrop,1000);
+
+    collisionInterval = setInterval(checkCollisions,20);
+    timerInterval = setInterval(() => {
     timeLeft--;
     document.getElementById("time").textContent =
       timeLeft;
@@ -108,6 +128,7 @@ function beginActualGame() {
 }
 //Collision Detection
 function checkCollisions() {
+    if (!gameRunning) return;
     const drops =
       document.querySelectorAll(".water-drop");
     const bucketRect =
@@ -129,24 +150,27 @@ function checkCollisions() {
             const points =
               Number(drop.dataset.points);
             score += points;
-            document.getElementById("score").textContent = score;
+            updateScore();
             drop.remove();
-            if (score >= 75) { 
+            if (score >= 70) { 
               winGame();
             }
         }
-        const percent = Math.min(100, Math.round(score/70*100));
-        document.getElementById("goal").textContent = percent + "%";
-    });
+    })
 }
 //Win screen function 
 function winGame() {
+    console.log("WIN GAME CALLED");
+    console.log(score);
+    if (!gameRunning) return;
     gameRunning = false;
     clearInterval(dropMaker);
     clearInterval(collisionInterval);
+    clearInterval(timerInterval);
+    updateScore();
     hideAllScreens();
     winScreen.classList.add("active");
-    document.getElementById("win-score").textContent = "Final Score: " + score;
+    console.log(winScreen);
 }
 
 //Swipe Support
@@ -178,6 +202,7 @@ document.addEventListener("touchmove", e => {
 
 //Water Drop Function
 function createDrop() {
+  if (!gameRunning) return;
   // Create a new div element that will be our water drop
   const drop = document.createElement("div");
   drop.className = "water-drop";
@@ -216,16 +241,14 @@ function createDrop() {
 
 //End Game
 function endGame() {
+    if(!gameRunning) return;
     gameRunning = false;
     clearInterval(dropMaker);
     clearInterval(collisionInterval);
+    clearInterval(timerInterval);
     hideAllScreens();
     gameOverScreen.classList.add("active");
-    document.getElementById(
-        "final-score"
-    ).textContent =
-      "Final Score: " +
-      document.getElementById("score").textContent;
+    updateScore();
 }
 
 function updateBucket(){
@@ -254,12 +277,18 @@ gameContainer.addEventListener("mousemove", e=>{
 
 //Start Game
 function restartGame(){
+    clearInterval(dropMaker);
+    clearInterval(collisionInterval);
+    clearInterval(timerInterval);
+    gameRunning=false;
     score = 0;
     timeLeft = 30;
     bucketX = 350;
-    document.getElementById("score").textContent = score;
     document.getElementById("time").textContent = timeLeft;
+    updateScore();
+    document.getElementById("goal").textContent = "0%";
     bucket.style.left = bucketX + "px";
     document.querySelectorAll(".water-drop").forEach(drop=>drop.remove());
+    hideAllScreens();
     startGame();
 }
