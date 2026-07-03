@@ -5,11 +5,16 @@ const bucketSpeed = 8;
 let movingLeft = false;
 let movingRight = false;
 let score = 0;
+const milestones = [
+    {score: 20, message: "Great Start!"},
+    {score: 40, message: "Keep Going!"},
+    {score: 60, message: "Almost There!"}
+];
+let shownMilestones = [];
 let gameRunning = false; // Keeps track of whether game is active or not
 let dropMaker; // Will store our timer that creates drops regularly
 let timeLeft =30;
 let difficulty = "easy";
-
 let winScore = 70;
 let pollutedChance = 0.25;
 let dropSpeedMin = 3;
@@ -80,6 +85,8 @@ function backToMenu(){
     clearInterval(collisionInterval);
     clearInterval(timerInterval);
     score = 0;
+    shownMilestones = [];
+    document.getElementById("milestone-message").textContent = "";
     timeLeft =
     difficulty==="easy"
     ?30
@@ -197,6 +204,17 @@ function beginActualGame() {
     }
 }, 1000);
 }
+//milestone message 
+function checkMilestones() {
+    milestones.forEach(milestone => {
+        if (score >= milestone.score && !shownMilestones.includes(milestone.score)
+        ) {
+            document.getElementById("milestone-message").textContent = milestone.message;
+            shownMilestones.push(milestone.score);
+        }
+    });
+}
+
 //Collision Detection
 function checkCollisions() {
     if (!gameRunning) return;
@@ -222,6 +240,7 @@ function checkCollisions() {
               Number(drop.dataset.points);
             score += points;
             updateScore();
+            checkMilestones();
             drop.remove();
             if(score >= winScore){
               winGame();
@@ -352,6 +371,8 @@ function restartGame(){
     clearInterval(timerInterval);
     gameRunning=false;
     score = 0;
+    shownMilestones = [];
+    document.getElementById("milestone-message").textContent = "";
     timeLeft = difficulty==="easy"
     ?30
     :difficulty==="normal"

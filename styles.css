@@ -350,6 +350,14 @@ body {
     z-index:50;
 }
 
+#milestone-message{
+    height:30px;
+    font-size:24px;
+    font-weight:bold;
+    color:#003b7a;
+    text-align:center;
+}
+
 /* Footer */
 footer{
     margin-top:20px;
