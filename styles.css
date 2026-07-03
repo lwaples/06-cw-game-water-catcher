@@ -67,6 +67,54 @@ body {
     overflow: hidden;
 }
 
+.difficulty-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.difficulty-btn{
+    background:#003b7a;
+    color:white;
+    padding:15px 30px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    transition:
+        background-color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.difficulty-btn:hover{
+    background:#2E9DF7;
+    transform:translateY(-2px);
+    box-shadow:0 4px 10px rgba(0,0,0,.25);
+}
+
+.active-difficulty{
+    background:#2E9DF7;
+}
+
+#difficulty-info{
+    margin-top:20px;
+    background:white;
+    padding:15px 25px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    min-width:240px;
+}
+
+#difficulty-info h3{
+    color:#003b7a;
+    margin-bottom:10px;
+}
+
+#difficulty-info p{
+    margin:6px 0;
+    font-size:17px;
+}
 
 #start-btn {
     padding: 8px 16px;
