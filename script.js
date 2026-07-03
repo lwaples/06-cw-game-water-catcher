@@ -35,6 +35,7 @@ function updateScore() {
 
     const percent = Math.min(100, Math.round(score / winScore * 100));
     document.getElementById("goal").textContent = percent + "%";
+    document.getElementById("progress-fill").style.width = percent + "%";
 }
 
 // Wait for button click to start the game
@@ -89,6 +90,7 @@ function backToMenu(){
     bucket.style.left = bucketX + "px";
     document.getElementById("time").textContent = timeLeft;
     updateScore();
+    document.getElementById("progress-fill").style.width = "0%";
     document.querySelectorAll(".water-drop")
     .forEach(drop => drop.remove());
     hideAllScreens();
@@ -248,27 +250,22 @@ function winGame() {
 //Swipe Support
 let touchStartX = 0;
 document.addEventListener("touchstart", e => {
-    touchStartX =
-      e.touches[0].clientX;
+    touchStartX = e.touches[0].clientX;
 });
 
 document.addEventListener("touchmove", e => {
-    const touchX =
-      e.touches[0].clientX;
-    const diff =
-      touchX - touchStartX;
-    bucketX += diff;
-    const container =
-      document.getElementById("game-container");
-    const maxX =
-      container.offsetWidth - 90;
-    bucketX = Math.max(
-        0,
-        Math.min(bucketX, maxX)
-    );
+    const touchX = e.touches[0].clientX;
+    const diff = touchX - touchStartX;
 
-    bucket.style.left =
-      bucketX + "px";
+    bucketX += diff;
+
+    const container = document.getElementById("game-container");
+    const maxX = container.offsetWidth - 90;
+
+    bucketX = Math.max(0, Math.min(bucketX, maxX));
+
+    bucket.style.left = bucketX + "px";
+
     touchStartX = touchX;
 });
 
@@ -364,6 +361,7 @@ function restartGame(){
     document.getElementById("time").textContent = timeLeft;
     updateScore();
     document.getElementById("goal").textContent = "0%";
+    document.getElementById("progress-fill").style.width = "0%";
     bucket.style.left = bucketX + "px";
     document.querySelectorAll(".water-drop").forEach(drop=>drop.remove());
     hideAllScreens();

@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Catcher</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-wrapper">
@@ -58,29 +61,32 @@
     </div>
 
    <!-- Game Screen -->
-    <div id="game-screen" class="screen">
-      <div class="score-panel">
+    <!-- Game Screen -->
+<div id="game-screen" class="screen">
+    <div class="score-panel">
         <div class="score">
-          Score:
-          <span id="score">0</span>
+            Score: <span id="score">0</span>
         </div>
-
         <div class="timer">
-          Time:
-          <span id="time">30</span>
+            Time: <span id="time">30</span>
         </div>
         <div class="progress">
-          Goal: <span id="goal">0%</span>
-        </div>
-      </div>
-      <div id="game-container">
-        <img src="img/CharityWater.png" alt="charity: water logo" class="corner-logo">
+    <span>Goal</span>
 
+    <div id="progress-bar">
+        <div id="progress-fill"></div>
+    </div>
+
+    <span id="goal">0%</span>
+    </div>
+  </div>
+    <div id="game-container">
+        <img src="img/CharityWater.png" alt="charity: water logo" class="corner-logo">
         <div id="bucket">
-          <img src="img/water-can-blk.png" id="bucket-img" alt="Jerry Can">
+            <img src="img/water-can-blk.png" id="bucket-img" alt="Jerry Can">
         </div>
-      </div>
-      </div>
+    </div>
+</div>
       
     <!-- Game Over Screen -->
     <div id="game-over-screen" class="screen">
@@ -110,6 +116,20 @@
         Main Menu
       </button>
     </div>
+
+    <!-- Footer -->
+    <footer>
+    <img src="img/CharityWater.png" alt="charity: water logo" class="footer-logo">
+
+    <p>Learn more about charity: water</p>
+    <a href="https://www.charitywater.org" target="_blank">
+        Website
+    </a>
+
+    <a href="https://www.charitywater.org/donate" target="_blank">
+        Donate
+    </a>
+</footer>
 
     <script src="script.js"></script>
 </body>

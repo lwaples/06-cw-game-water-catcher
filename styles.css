@@ -22,6 +22,13 @@ Fonts:
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif;
+}
+
+html,
+body{
+    overflow-x:hidden;
+    touch-action: none;
 }
 
 body {
@@ -30,7 +37,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #FFF8E6;
-    font-family: Arial, sans-serif;
+    font-family: "Nunito Sans", sans-serif;
 }
 
 .game-wrapper {
@@ -40,15 +47,39 @@ body {
     gap: 20px;
 }
 
-.score-panel {
-    display: flex;
-    justify-content: space-between;  /* Space between score and button */
-    align-items: center;
-    width: 800px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.score-panel{
+    display:flex;
+    align-items:center;
+    justify-content:space-evenly;
+    width:min(95vw,800px);
+    padding:10px;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 2px 4px rgba(0,0,0,.1);
+}
+
+.progress{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+#progress-bar{
+    width:180px;
+    height:16px;
+    background:#ddd;
+    border-radius:10px;
+    overflow:hidden;
+    border:2px solid #003b7a;
+}
+
+#progress-fill{
+    width:0%;
+    height:100%;
+    background:#4FCB53;
+    transition:width .25s ease;
 }
 
 .timer {
@@ -58,13 +89,14 @@ body {
 }
 
 #game-container {
-    width: 800px;
-    height: 600px;
+    width: min(95vw, 800px);
+    height: min(75vh, 600px);
     background-color: #FFC907;
     border: 2px solid #333;
     border-radius: 8px;
     position: relative;
     overflow: hidden;
+    touch-action: none;
 }
 
 .difficulty-buttons{
@@ -316,4 +348,45 @@ body {
     left:15px;
     width:120px;
     z-index:50;
+}
+
+/* Footer */
+footer{
+    margin-top:20px;
+    padding:20px;
+    text-align:center;
+    background:#ffffff;
+    border-top:3px solid #FFC907;
+    width:min(95vw,800px);
+    border-radius:0 0 10px 10px;
+}
+
+footer p{
+    margin-bottom:12px;
+    font-size:16px;
+    color:#333;
+}
+
+footer a{
+    margin:0 15px;
+    text-decoration:none;
+    color:#003b7a;
+    font-weight:bold;
+}
+
+footer a:hover{
+    color:#2E9DF7;
+}
+
+.footer-logo{
+    width:120px;
+    margin-bottom:10px;
+}
+@media (max-width: 850px) {
+    .game-wrapper,
+    .score-panel,
+    #game-container,
+    footer {
+        width: 95vw;
+    }
 }
