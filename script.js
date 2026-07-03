@@ -31,6 +31,20 @@ const gameOverScreen = document.getElementById("game-over-screen");
 const winScreen = document.getElementById("win-screen");
 
 // =============================
+// Sound Effects
+// =============================
+const clickSound = new Audio("click.mp3");
+const catchSound = new Audio("catch.mp3");
+const pollutedSound = new Audio("polluted.mp3");
+const winSound = new Audio("win.mp3");
+const loseSound = new Audio("lose.mp3");
+
+function playSound(sound){
+    sound.currentTime = 0;
+    sound.play();
+}
+
+// =============================
 // Update all score displays
 // =============================
 function updateScore() {
@@ -44,16 +58,46 @@ function updateScore() {
 }
 
 // Wait for button click to start the game
-document.getElementById("easy-btn").addEventListener("click",()=>setDifficulty("easy"));
-document.getElementById("normal-btn").addEventListener("click",()=>setDifficulty("normal"));
-document.getElementById("hard-btn").addEventListener("click",()=>setDifficulty("hard"));
-document.getElementById("start-btn").addEventListener("click", startGame);
-document.getElementById("objective-btn").addEventListener("click", showObjectives);
-document.getElementById("back-btn").addEventListener("click", backToMenu);
-document.getElementById("retry-btn").addEventListener("click", restartGame);
-document.getElementById("play-again-btn").addEventListener("click", restartGame);
-document.getElementById("menu-btn").addEventListener("click", backToMenu);
-document.getElementById("win-menu-btn").addEventListener("click", backToMenu);
+document.getElementById("easy-btn").addEventListener("click", () => {
+  playSound(clickSound);
+  setDifficulty("easy");
+});
+document.getElementById("normal-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    setDifficulty("normal");
+});
+document.getElementById("hard-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    setDifficulty("hard");
+});
+document.getElementById("start-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    startGame();
+});
+document.getElementById("objective-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    showObjectives();
+});
+document.getElementById("back-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    backToMenu();
+});
+document.getElementById("retry-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    restartGame();
+});
+document.getElementById("play-again-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    restartGame();
+});
+document.getElementById("menu-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    backToMenu();
+});
+document.getElementById("win-menu-btn").addEventListener("click", () => {
+    playSound(clickSound);
+    backToMenu();
+});
 document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft") movingLeft = true;
     if (e.key === "ArrowRight") movingRight = true;
@@ -239,6 +283,12 @@ function checkCollisions() {
             const points =
               Number(drop.dataset.points);
             score += points;
+            if(points > 0){ 
+              playSound(catchSound);
+            }
+            if(points < 0){
+              playSound(pollutedSound);
+            }
             updateScore();
             checkMilestones();
             drop.remove();
@@ -257,6 +307,7 @@ function winGame() {
     console.log(score);
     if (!gameRunning) return;
     gameRunning = false;
+    playSound(winSound);
     clearInterval(dropMaker);
     clearInterval(collisionInterval);
     clearInterval(timerInterval);
@@ -331,6 +382,7 @@ function createDrop() {
 function endGame() {
     if(!gameRunning) return;
     gameRunning = false;
+    playSound(loseSound);
     clearInterval(dropMaker);
     clearInterval(collisionInterval);
     clearInterval(timerInterval);
